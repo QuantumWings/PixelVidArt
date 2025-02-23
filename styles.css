@@ -1,0 +1,392 @@
+/* Basic Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Body with gradient background */
+body {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Uniform Button Style */
+button {
+  background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #4c4c4c, #2a2a2a);
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Additional consistent control button styling */
+.control-btn {
+  background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Icon-only button styling */
+.icon-btn {
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* SVG icons in buttons */
+button svg {
+  fill: #fff;
+  stroke: #fff;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+/* Hover effect for icon-only buttons */
+.icon-btn:hover svg {
+  fill: #ffcc00;
+  stroke: #ffcc00;
+}
+
+/* Global styles for inputs and selects */
+input[type="range"],
+input[type="color"],
+select {
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+}
+
+/* Container & Responsive Layout Setup */
+.layout-container {
+  display: flex;
+  flex: 1;
+  padding: 1rem;
+  gap: 1rem;
+  min-height: 0;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .layout-container {
+    flex-direction: row;
+  }
+}
+
+/* Header Styling */
+header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+/* Controls Section Styling */
+.controls {
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 300px;
+  backdrop-filter: blur(5px);
+}
+
+/* Labels for controls */
+.upload-control label,
+.dropdown-group label,
+.slider-control label,
+.sound-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+/* File input styling */
+input[type="file"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  appearance: none;
+}
+
+input[type="file"]::-webkit-file-upload-button, 
+input[type="file"]::file-selector-button {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover, 
+input[type="file"]::file-selector-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+input[type="range"] {
+  width: 100%;
+  display: block;
+  accent-color: #ffcc00;
+}
+
+/* Dropdown group styling */
+.dropdown-group select, .dropdown-group input[type="color"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #000;
+}
+
+#shapeSelect {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Custom styling for select dropdowns */
+select#shapeSelect,
+select#lineStyleSelect,
+select#resolutionSelect {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpolygon points='0,0 10,0 5,6' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.7rem;
+}
+
+select#shapeSelect::-ms-expand,
+select#lineStyleSelect::-ms-expand,
+select#resolutionSelect::-ms-expand {
+  display: none;
+}
+
+/* Slider & Sound Groups */
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slider-control {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Extra Controls Group */
+.extra-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Video Section Styling */
+.video-section {
+  flex: 2 1 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Placeholder styling */
+#videoPlaceholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+/* Video & Canvas Styling */
+#sourceVideo,
+#effectCanvas {
+  width: 100%;
+  display: block;
+}
+
+#sourceVideo {
+  display: none;
+}
+
+/* Button Group Styling */
+.button-group {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Styling for Time Slider Wrapper */
+.time-slider-wrapper {
+  flex: 2;
+  display: flex;
+  align-items: center;
+}
+
+#timeSlider {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+/* Ensure time text is clearly visible over any video content */
+#timeSliderValue {
+  color: #fff;
+  text-shadow: 0 0 3px #000;
+  min-width: 3rem;
+  text-align: center;
+}
+
+/* SVG Button animation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+button svg {
+  animation: pulse 2s infinite;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #2c2a38;
+  margin: 10% auto;
+  padding: 2rem;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  color: #f0f0f0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.modal-content ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-content p {
+  margin-bottom: 1rem;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #fff;
+}
+
+/* New styles for neon controls */
+.neon-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Color Buttons Row */
+.color-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* Responsive Layout Adjustments */
+@media (max-width: 767px) {
+  .layout-container {
+    flex-direction: column;
+  }
+}

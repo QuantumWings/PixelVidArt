@@ -1,0 +1,335 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PixelVidArt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>PixelVidArt</h1>
+  </header>
+  <main>
+    <div class="layout-container">
+      <section class="controls">
+        <div class="upload-control">
+          <label for="videoUpload">Upload File:</label>
+          <input type="file" id="videoUpload" accept="video/*">
+        </div>
+        <div class="slider-group" style="flex-direction: row; align-items: center;">
+          <button id="dotToggleBtn" class="icon-btn" title="Toggle Dot Visibility">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" fill="#fff"/>
+            </svg>
+          </button>
+          <div class="slider-control shape-dropdown" style="width: 90px; margin: 0 0.5rem;">
+            <label for="shapeSelect" style="color:#fff;">Point Shape:</label>
+            <select id="shapeSelect">
+              <option value="circle">Circle</option>
+              <option value="square">Square</option>
+              <option value="hexagon">Hexagon</option>
+              <option value="heart">Heart</option>
+              <option value="star">Star</option>
+              <option value="polygon">Polygon</option>
+            </select>
+          </div>
+          <div class="slider-control" style="flex:1;">
+            <label for="dotSize">Dot Size: <span id="dotSizeValue">5</span>px</label>
+            <input type="range" id="dotSize" min="1" max="50" value="5">
+          </div>
+        </div>
+        <div class="slider-group" style="flex-direction: row; align-items: center;">
+          <button id="connectionToggleBtn" class="icon-btn" title="Toggle Connection Lines">
+            <svg id="connectionIcon" width="24" height="24" viewBox="0 0 24 24">
+              <line x1="4" y1="12" x2="20" y2="12" stroke="#aaa" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="slider-control" style="flex:1;">
+            <label for="lineComplexity">Line Complexity: <span id="lineComplexityValue">1</span></label>
+            <input type="range" id="lineComplexity" min="1" max="10" value="1" style="width: 100%;">
+          </div>
+          <div class="slider-control" style="flex:1;">
+            <label for="lineThickness">Line Thickness: <span id="lineThicknessValue">1</span>px</label>
+            <input type="range" id="lineThickness" min="1" max="10" value="1" style="width: 100%;">
+          </div>
+          <div class="slider-control" style="flex:1;">
+            <label for="lineStyleSelect">Line Style:</label>
+            <select id="lineStyleSelect">
+              <option value="curve" selected>Curve</option>
+              <option value="straight">Straight</option>
+              <option value="zigzag">Zigzag</option>
+              <option value="wave">Wave</option>
+              <option value="dotted">Dotted</option>
+              <option value="spiral">Spiral</option>
+              <option value="dashed">Dashed</option>
+              <option value="bounce">Bounce</option>
+              <option value="squiggly">Squiggly</option>
+            </select>
+          </div>
+        </div>
+        <div class="slider-control">
+          <label for="thresholdSlider">Threshold: <span id="thresholdValue">128</span></label>
+          <input type="range" id="thresholdSlider" min="0" max="255" value="128">
+        </div>
+        <div class="slider-control">
+          <label for="playbackRateSlider">Playback Speed: <span id="playbackRateValue">1.0</span>x</label>
+          <input type="range" id="playbackRateSlider" min="0.25" max="2" step="0.05" value="1">
+        </div>
+        <div class="neon-controls">
+          <button id="neonToggleBtn" class="control-btn" title="Toggle Neon Effect">
+            <svg id="neonIcon" width="24" height="24" viewBox="0 0 24 24">
+              <rect x="4" y="4" width="16" height="16" fill="none" stroke="#fff" stroke-width="2"/>
+              <line x1="4" y1="4" x2="20" y2="20" stroke="#fff" stroke-width="2"/>
+            </svg>
+            Neon
+          </button>
+          <div class="slider-control" style="flex:1; min-width: 200px;">
+            <label for="glowSize">Neon Size: <span id="glowSizeValue">20</span></label>
+            <input type="range" id="glowSize" min="0" max="50" value="20" style="width: 100%;">
+          </div>
+        </div>
+        <div class="color-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <button id="dotColorBtn" class="control-btn" title="Adjust Dot Color" style="width: 135px;">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" fill="#ff4081"/>
+            </svg>
+            Dot Color
+          </button>
+          <input type="color" id="dotColorPicker" style="display: none;" value="#000000">
+  
+          <button id="lineColorBtn" class="control-btn" title="Adjust Line Color" style="width: 135px;">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <line x1="4" y1="20" x2="20" y2="4" stroke="#fff" stroke-width="2"/>
+              <line x1="4" y1="4" x2="20" y2="20" stroke="#fff" stroke-width="2"/>
+            </svg>
+            Line Color
+          </button>
+          <input type="color" id="lineColorPicker" style="display: none;" value="#000000">
+  
+          <button id="neonColorBtn" class="control-btn" title="Adjust Neon Color" style="width: 135px;">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2"/>
+              <circle id="neonColorPreview" cx="12" cy="12" r="4" fill="#00ffff"/>
+            </svg>
+            Neon Color
+          </button>
+          <input type="color" id="neonColorPicker" style="display: none;" value="#00ffff">
+          <button id="backgroundColorBtn" class="control-btn" title="Adjust Background Color" style="width: 135px;">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <rect x="4" y="4" width="16" height="16" fill="#fff" stroke="#fff" stroke-width="2"/>
+            </svg>
+            BG Color
+          </button>
+          <input type="color" id="backgroundColorPicker" style="display: none;" value="#ffffff">
+        </div>
+        <div class="extra-controls" style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">         
+          <button id="intensityToggleBtn" class="control-btn" title="Toggle Intensity Mode" style="width: 135px;">
+            <svg id="intensityIcon" width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2"/>
+              <line x1="8" y1="12" x2="16" y2="12" stroke="#fff" stroke-width="2"/>
+            </svg>
+            Intensity
+          </button>
+			<button id="dynamicToggleBtn" class="control-btn" title="Toggle Dynamic Particles" style="width: 135px;">
+            <svg id="dynamicIcon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" stroke="#fff" stroke-width="2" d="M13 2v7h7l-9 13v-9H4l9-11z"/>
+            </svg>
+            Dynamic
+          </button>
+          <button id="backgroundToggleBtn" class="control-btn" title="Toggle Invert BG" style="width: 135px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" id="bgToggleIcon">
+              <rect x="3" y="3" width="18" height="18" fill="#fff" stroke="#000" stroke-width="2"/>
+            </svg>
+            Invert BG
+          </button>
+        </div>
+        <div class="sound-group" style="display: flex; align-items: center; gap: 0.5rem;">
+          <button id="soundBtn" class="icon-btn" title="Toggle Sound">
+            <svg id="soundIcon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#fff" d="M3 9v6h4l5 5V4l-5 5H3z"/>
+              <line x1="2" y1="2" x2="22" y2="22" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </button>
+          <label for="volumeSlider" style="margin: 0;">Volume:</label>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1">
+        </div>
+        <div class="extra-controls">
+          <button id="snapshotBtn" title="Capture Snapshot">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#fff" d="M21 5h-3.17l-1.84-2H7.99l-1.84 2H3v14h18V5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+            </svg>
+            Snapshot
+          </button>
+          <button id="fullscreenBtn" title="Toggle Fullscreen">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#fff" d="M7 14H5v5h5v-2H7v-3zm0-4h2V7h3V5H7v5zm10 8h-3v2h5v-5h-2v3zm-3-10V5h5v5h-2V7h-3z"/>
+            </svg>
+            Fullscreen
+          </button>
+          <button id="resetBtn" title="Reset All Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#fff" d="M12 6V3L8 7l4 4V8c3.31 0 6 2.69 6 6 0 1.11-.36 2.14-.97 3L19 18.03C20.23 16.73 21 14.47 21 12c0-4.97-4.03-9-9-9zm-6 6c0-1.11.36-2.14.97-3L5 5.97C3.77 7.27 3 9.53 3 12c0 4.97 4.03 9 9 9v3l4-4-4-4v3c-3.31 0-6-2.69-6-6z"/>
+            </svg>
+            Reset
+          </button>
+          <button id="helpBtn" title="Show Help">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="#fff" opacity="0.3"/>
+              <path fill="#fff" d="M12 6a3 3 0 0 1 3 3c0 1.5-1 2-1.5 2-.5.5-.5 1-.5 1l-1 1h-1v-1c0-.5 0-1 1-1 .5 0 1-.5 1-1a1 1 0 1 0-2 0H9a3 3 0 1 1 3-3zM11 17h2v2h-2z"/>
+            </svg>
+            Help
+          </button>
+        </div>
+        <div class="recording-controls" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label for="resolutionSelect">Save Resolution:</label>
+            <select id="resolutionSelect">
+              <option value="original">Original</option>
+              <option value="480p">480p</option>
+              <option value="720p">720p</option>
+              <option value="1080p">1080p</option>
+              <option value="4K">4K</option>
+            </select>
+            <label for="includeAudioCheck" style="margin-left: 1rem;">Include Audio:</label>
+            <input type="checkbox" id="includeAudioCheck" checked>
+          </div>
+          <button id="saveVideoBtn" title="Convert and Save Dot Effect Video">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <rect x="4" y="4" width="16" height="16" fill="none" stroke="#fff" stroke-width="2"/>
+              <polygon points="10,8 16,12 10,16" fill="#fff"/>
+            </svg>
+            Save Video
+          </button>
+          <progress id="conversionProgress" value="0" max="100" style="width:100%; display:none;"></progress>
+        </div>
+      </section>
+      <section class="video-section">
+        <div class="video-container" id="videoContainer">
+          <video id="sourceVideo" muted playsinline style="display: none;"></video>
+          <canvas id="effectCanvas"></canvas>
+          <div id="videoPlaceholder">No video loaded</div>
+          <div class="button-group" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div class="time-slider-wrapper" style="flex:2; display: flex; align-items: center;">
+              <label for="timeSlider" style="display:none;">Video Time</label>
+              <input type="range" id="timeSlider" min="0" max="0" step="0.1" value="0" style="flex:1;">
+              <span id="timeSliderValue">0:00</span>
+            </div>
+            <button id="pausePlayBtn" title="Play/Pause Video">
+              <svg id="pausePlayIcon" width="10" height="10" viewBox="0 0 24 24">
+                <polygon points="8,5 19,12 8,19" fill="#fff"/>
+              </svg>
+            </button>
+            <button id="replayBtn" title="Replay Video">
+              <svg width="10" height="10" viewBox="0 0 24 24">
+                <path fill="#fff" d="M12,5V1L7,6l5,5V7c3.86,0,7,3.14,7,7s-3.14,7-7,7s-7-3.14-7-7H3c0,5.04,4.05,9,9,9s9-3.96,9-9S17.04,5,12,5z"/>
+              </svg>
+            </button>
+            <button id="autoReplayBtn" title="Auto Replay Video">
+              <svg width="10" height="10" viewBox="0 0 24 24">
+                <path fill="#fff" d="M12 5V1L7 6l5,5V7c3.86,0 7,3.14,7,7 0 1.68-.57 3.23-1.52 4.5l1.46 1.46C19.07 18.07 20 15.63 20 13c0-4.42-3.58-8-8-8zm-1 14c-3.31 0-6-2.69-6-6H3l4-4 4 4H7c0 2.21 1.79 4 4 4v2z"/>
+              </svg>
+            </button>
+            <button id="toggleOriginalBtn" title="Toggle Original Video">
+              <svg width="10" height="10" viewBox="0 0 24 24">
+                <path fill="#fff" d="M4 6h16v12H4z" opacity="0.3"/>
+                <path fill="#fff" d="M2 4v16h20V4H2zm18 14H4V6h16v12z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <span id="modalClose" class="close">&times;</span>
+      <h2>PixelVidArt Help</h2>
+      <p>
+        This tool transforms uploaded videos into unique dot matrix art effects, offering extensive control options to adjust the visuals. The following guide explains how to use each feature:
+      </p>
+      <ul>
+        <li>
+          <strong>Upload File:</strong>
+          <br>Click the "Upload File" button to select a video file. Once uploaded, the video will automatically play with the dot effect applied.
+        </li>
+        <li>
+          <strong>Point Shape:</strong>
+          <br>Use the "Point Shape" dropdown to select the shape of the dots (Circle, Square, Hexagon, Heart, Star, or Polygon).
+        </li>
+        <li>
+          <strong>Dot Size & Visibility:</strong>
+          <br>Adjust the dot size using the "Dot Size" slider. Use the dot toggle button to show or hide the dots.
+        </li>
+        <li>
+          <strong>Connection Lines:</strong>
+          <br>Click the "Toggle Connection Lines" button to enable or disable connecting lines between dots. Adjust the "Line Complexity", "Line Thickness", and "Line Style" controls to customize the lines.
+        </li>
+        <li>
+          <strong>Threshold:</strong>
+          <br>Set the luminance threshold with the "Threshold" slider. Areas with brightness below this value will be converted into dot effects.
+        </li>
+        <li>
+          <strong>Playback Speed:</strong>
+          <br>Control the video playback speed using the "Playback Speed" slider.
+        </li>
+        <li>
+          <strong>Neon Effect & Size:</strong>
+          <br>Toggle the neon effect with the "Neon" button. Adjust the neon size (which affects both dots and lines) using the "Neon Size" slider.
+        </li>
+        <li>
+          <strong>Color Adjustments:</strong>
+          <br>Click the "Dot Color", "Line Color", "Neon Color", or "BG Color" buttons to display a color picker. Clicking the same button again will close the picker.
+        </li>
+        <li>
+          <strong>Intensity Mode:</strong>
+          <br>Turning on this mode will show a "dynamic effect of light and dark spot size".
+        </li>
+        <li>
+          <strong>Dynamic Particles:</strong>
+          <br>Toggle the dynamic mode with the "Dynamic" button to have the dots shift randomly based on the video brightness.
+        </li>
+        <li>
+          <strong>Invert Background (Invert BG):</strong>
+          <br>Switch between a white and black background by clicking the "Invert BG" button. The icon and text update to reflect the current state.
+        </li>
+        <li>
+          <strong>Volume & Mute:</strong>
+          <br>Adjust the volume with the slider next to the speaker icon. Use the speaker button to toggle mute on and off.
+        </li>
+        <li>
+          <strong>Snapshot:</strong>
+          <br>Click the "Snapshot" button to save the current effect as a PNG image.
+        </li>
+        <li>
+          <strong>Fullscreen:</strong>
+          <br>Toggle fullscreen mode by clicking the "Fullscreen" button for an immersive experience.
+        </li>
+        <li>
+          <strong>Reset:</strong>
+          <br>Click the "Reset" button to restore all settings to their default values (including dot size, line properties, colors, and playback speed).
+        </li>
+        <li>
+          <strong>Video Playback Controls:</strong>
+          <br>
+          - The "Video Time" slider allows you to jump to a specific time in the video and resume playback from that moment.<br>
+          - The "Play/Pause Video" button toggles video playback with corresponding icons.<br>
+          - The "Replay Video" and "Auto Replay Video" buttons restart or auto-loop the video.<br>
+          - The "Toggle Original Video" button shows or hides the original video image.
+        </li>
+        <li>
+          <strong>Recording & Saving Video:</strong>
+          <br>Select a resolution from the "Save Resolution" dropdown and choose whether to include audio. Click the "Save Video" button to convert and download the dot effect video. A progress bar will indicate the conversion status.
+        </li>
+      </ul>
+      <p>
+        Experiment with each feature to create stunning, dynamic art from your videos!
+      </p>
+    </div>
+  </div>
+  <script src="script.js" type="module"></script>
+</body>
+</html>
